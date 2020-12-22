@@ -2,4 +2,3 @@ node_modules
 package-lock.json
 dist/main.js
 
-client/config/nbaData.js
