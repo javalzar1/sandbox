@@ -1,7 +1,4 @@
 node_modules
 package-lock.json
 dist/main.js
-.vscode
 
-### API KEY ###
-client/config/nbaData.js
