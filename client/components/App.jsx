@@ -13,7 +13,7 @@ class App extends React.Component {
     fetch("https://free-nba.p.rapidapi.com/players", {
       "method": "GET",
       "headers": {
-        "x-rapidapi-key": 'ef6681f4fcmsh0edf56229bc63d8p1fba69jsn209d2377f3f7',
+        "x-rapidapi-key": this.props.API_KEY,
         "x-rapidapi-host": "free-nba.p.rapidapi.com"
       }
     })
