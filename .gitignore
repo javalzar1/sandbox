@@ -3,3 +3,5 @@ package-lock.json
 dist/main.js
 
 client/config
+
+.vscode

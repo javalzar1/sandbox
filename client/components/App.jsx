@@ -1,16 +1,16 @@
 import React from 'react';
-import Players from './Players.jsx'
+import Games from './Games.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      players: []
+      games: []
     };
   }
 
   componentDidMount() {
-    fetch("https://free-nba.p.rapidapi.com/players", {
+    fetch("https://free-nba.p.rapidapi.com/games?per_page=25", {
       "method": "GET",
       "headers": {
         "x-rapidapi-key": this.props.API_KEY,
@@ -20,8 +20,8 @@ class App extends React.Component {
     .then(response => {
       response.json()
       .then((data) => {
-        console.log(data)
-        this.setState({ players: data.data})
+        console.log(data.data)
+        this.setState({ games: data.data})
       })
     })
     .catch(err => {
@@ -31,9 +31,8 @@ class App extends React.Component {
 
 
   render() {
-
     return(
-      <Players players={this.state.players} />
+      <Games games={this.state.games} />
     );
   }
 }
