@@ -6,6 +6,8 @@ import {
   Link
 } from "react-router-dom";
 
+import data from '../config/dummyData.js';
+
 import LogIn from "./LogIn.jsx";
 import SignUp from "./SignUp.jsx";
 import Home from "./Home.jsx";
@@ -15,27 +17,35 @@ class App extends React.Component {
     super(props);
     this.state= {
       tableView: true,
-      games: []
+      games: data,    // -> [] empty when NBA Stats API is mounted
+      searchType: 'player'
     }
   }
 
-  // preload table with game data on home page
-  componentDidMount() {
-    fetch("https://free-nba.p.rapidapi.com/games?per_page=25", {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-key": this.props.API_KEY,
-        "x-rapidapi-host": "free-nba.p.rapidapi.com"
-      }
-    })
-    .then(response => {
-      response.json()
-      .then((data) => {
-        this.setState({ games: data.data})
-      })
-    })
-    .catch(err => {
-      console.error(err);
+  // // preload table with game data on home page
+  // componentDidMount() {
+  //   fetch("https://free-nba.p.rapidapi.com/games?per_page=25", {
+  //     "method": "GET",
+  //     "headers": {
+  //       "x-rapidapi-key": this.props.API_KEY,
+  //       "x-rapidapi-host": "free-nba.p.rapidapi.com"
+  //     }
+  //   })
+  //   .then(response => {
+  //     response.json()
+  //     .then((data) => {
+  //       this.setState({ games: data.data})
+  //     })
+  //   })
+  //   .catch(err => {
+  //     console.error(err);
+  //   });
+  // }
+
+searchType(e) {
+    const newType = e.target.value;
+    this.setState({
+      searchType: newType
     });
   }
 
@@ -46,7 +56,7 @@ class App extends React.Component {
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" >NBA Stats</a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
                   <Link to="/">Home</Link>
                 </li>
@@ -75,6 +85,7 @@ class App extends React.Component {
               <Home
                 games={this.state.games}
                 tableView={this.state.tableView}
+                searchType={this.searchType.bind(this)}
               />
             </Route>
           </Switch>

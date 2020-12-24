@@ -2,3 +2,23 @@ a{
   color: black;
   text-decoration: black;
 }
+.container{
+  padding-bottom: 10px;
+}
+.navbar-nav{
+  padding-left:30px;
+  padding-right:30px;
+}
+.nav-item{
+  padding-left:10px;
+  padding-right:10px;
+}
+/* react converts <ul> list elements into <a /> tags */
+a:hover{
+  text-decoration: none;
+}
+select, input, button {
+  text-decoration: none;
+  outline: none;
+}
+
