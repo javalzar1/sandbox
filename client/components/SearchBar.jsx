@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = ({searchType}) => {
+const SearchBar = ({ searchType }) => {
   return (
     <div className="container">
       <div className="row">
