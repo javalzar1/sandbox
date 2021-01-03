@@ -6,8 +6,8 @@ import {
   Link
 } from "react-router-dom";
 
-import get from '../api/get.jsx';
-import data from '../config/dummyData.js';
+import { getGames, getPlayer } from '../api/get.jsx';
+//import data from '../config/dummyData.js';
 
 import LogIn from "./LogIn.jsx";
 import SignUp from "./SignUp.jsx";
@@ -18,20 +18,20 @@ class App extends React.Component {
     super(props);
     this.state= {
       tableView: true,
-      games: data,    // -> [] empty when NBA Stats API is mounted
+      games: [],    // -> [] empty when NBA Stats API is mounted
       searchType: 'player',
       searchValue: ''
     }
   }
 
   // preload table with game data on home page
-  // componentDidMount() {
-  //   get(this.props.API_KEY, (result) => {
-  //     this.setState({
-  //       games: result.data
-  //     });
-  //   })
-  // }
+  componentDidMount() {
+    getGames(result => {
+      this.setState({
+        games: result.data
+      });
+    })
+  }
 
   searchType(e) {
     this.setState({
@@ -48,6 +48,10 @@ class App extends React.Component {
   searchSubmit() {
     let type = this.state.searchType;
     let value = this.state.searchValue;
+
+    getPlayer(value, (result) => {
+      console.log(result);
+    })
 
   }
 
