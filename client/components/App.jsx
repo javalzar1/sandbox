@@ -18,7 +18,8 @@ class App extends React.Component {
     super(props);
     this.state= {
       tableView: true,
-      games: [],    // -> [] empty when NBA Stats API is mounted
+      games: [],
+      players: [],
       searchType: 'player',
       searchValue: ''
     }
@@ -26,9 +27,9 @@ class App extends React.Component {
 
   // preload table with game data on home page
   componentDidMount() {
-    getGames(result => {
+    getGames(({data}) => {
       this.setState({
-        games: result.data
+        games: data
       });
     })
   }
@@ -49,9 +50,19 @@ class App extends React.Component {
     let type = this.state.searchType;
     let value = this.state.searchValue;
 
-    getPlayer(value, (result) => {
-      console.log(result);
-    })
+    if (value.length === 0) {
+      alert("no value submitted");
+    } else {
+      if (type === 'player') {
+        getPlayer(value, ({ data }) => {
+          this.setState({ players: data });
+        })
+      } else {
+        // get request for team
+        // api does not have a search field for teams
+        // need to find new functionality
+      }
+    }
 
   }
 
