@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
+import get from '../api/get.jsx';
 import data from '../config/dummyData.js';
 
 import LogIn from "./LogIn.jsx";
@@ -18,35 +19,36 @@ class App extends React.Component {
     this.state= {
       tableView: true,
       games: data,    // -> [] empty when NBA Stats API is mounted
-      searchType: 'player'
+      searchType: 'player',
+      searchValue: ''
     }
   }
 
-  // // preload table with game data on home page
+  // preload table with game data on home page
   // componentDidMount() {
-  //   fetch("https://free-nba.p.rapidapi.com/games?per_page=25", {
-  //     "method": "GET",
-  //     "headers": {
-  //       "x-rapidapi-key": this.props.API_KEY,
-  //       "x-rapidapi-host": "free-nba.p.rapidapi.com"
-  //     }
+  //   get(this.props.API_KEY, (result) => {
+  //     this.setState({
+  //       games: result.data
+  //     });
   //   })
-  //   .then(response => {
-  //     response.json()
-  //     .then((data) => {
-  //       this.setState({ games: data.data})
-  //     })
-  //   })
-  //   .catch(err => {
-  //     console.error(err);
-  //   });
   // }
 
-searchType(e) {
-    const newType = e.target.value;
+  searchType(e) {
     this.setState({
-      searchType: newType
+      searchType: e.target.value
     });
+  }
+
+  handleSearchValue(e) {
+    this.setState({
+      searchValue: e.target.value
+    })
+  }
+
+  searchSubmit() {
+    let type = this.state.searchType;
+    let value = this.state.searchValue;
+
   }
 
   render () {
@@ -85,6 +87,9 @@ searchType(e) {
                 games={this.state.games}
                 tableView={this.state.tableView}
                 searchType={this.searchType.bind(this)}
+                searchValue={this.state.searchValue}
+                handleSearchValue={this.handleSearchValue.bind(this)}
+                searchSubmit={this.searchSubmit.bind(this)}
               />
             </Route>
           </Switch>
